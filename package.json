@@ -1,6 +1,6 @@
 {
-  "name": "react-native-refactor",
-  "displayName": "React Native Refactor Wrapper",
+  "name": "react-jsx-refactor",
+  "displayName": "React JSX Refactor Wrapper",
   "description": "Refactor: Wrap JSX with React Native components (View, Pressable, etc.) via Ctrl+.",
   "version": "0.0.1",
   "engines": {
