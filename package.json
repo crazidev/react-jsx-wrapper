@@ -1,0 +1,147 @@
+{
+  "name": "react-native-refactor",
+  "displayName": "React Native Refactor Wrapper",
+  "description": "Refactor: Wrap JSX with React Native components (View, Pressable, etc.) via Ctrl+.",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.105.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onLanguage:javascriptreact",
+    "onLanguage:typescriptreact"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [],
+    "configuration": {
+      "title": "JSX Wrapper",
+      "properties": {
+        "jsxWrapper.wrappers": {
+          "type": "array",
+          "default": [],
+          "description": "Custom wrapper configurations. Leave empty to use defaults.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "Component/element name"
+              },
+              "import": {
+                "type": "object",
+                "description": "Import configuration",
+                "properties": {
+                  "module": {
+                    "type": "string",
+                    "description": "Module to import from (e.g., 'react-native' or '@/components/Button')"
+                  },
+                  "named": {
+                    "type": "boolean",
+                    "description": "Use named import: import { Component } from 'module'"
+                  },
+                  "default": {
+                    "type": "boolean",
+                    "description": "Use default import: import Component from 'module'"
+                  }
+                }
+              },
+              "attributes": {
+                "type": "string",
+                "description": "Default attributes (e.g., 'style={{}}' or 'className=\"\" onPress={() => {}}')"
+              },
+              "selfClosing": {
+                "type": "boolean",
+                "description": "Whether component is self-closing"
+              },
+              "removalBehavior": {
+                "type": "string",
+                "default": "both",
+                "enum": [
+                  "remove-with-children",
+                  "remove-without-children",
+                  "both"
+                ],
+                "enumDescriptions": [
+                  "Remove element with children",
+                  "Remove element without children",
+                  "Both options"
+                ],
+                "description": "Behavior when removing wrapper"
+              }
+            },
+            "required": [
+              "name"
+            ]
+          }
+        },
+        "jsxWrapper.preferredWrapper": {
+          "type": "string",
+          "default": "View",
+          "description": "The preferred/default wrapper (shown first in refactor menu)"
+        },
+        "jsxWrapper.smartDetection": {
+          "type": "boolean",
+          "default": true,
+          "description": "Automatically detect and select complete JSX element when cursor is inside an element tag"
+        },
+        "jsxWrapper.formatAfterWrap": {
+          "type": "boolean",
+          "default": true,
+          "description": "Automatically format the document after wrapping"
+        },
+        "jsxWrapper.framework": {
+          "type": "string",
+          "default": "react",
+          "enum": [
+            "react",
+            "react-native",
+            "html"
+          ],
+          "enumDescriptions": [
+            "React (web) - div, span, section, button",
+            "React Native - View, Text, Pressable, TouchableOpacity, ScrollView",
+            "HTML - div, span, section, article, main, header, footer"
+          ],
+          "description": "Framework to use for default wrappers (ignored if custom wrappers are defined)"
+        },
+        "jsxWrapper.defaultRemovalBehavior": {
+          "type": "string",
+          "default": "both",
+          "enum": [
+            "remove-with-children",
+            "remove-without-children",
+            "both"
+          ],
+          "enumDescriptions": [
+            "Remove element with children",
+            "Remove element without children",
+            "Both options"
+          ],
+          "description": "Behavior when removing wrapper"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "bun run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "bun run compile && bun run lint",
+    "lint": "eslint src",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.105.0",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "22.x",
+    "@typescript-eslint/eslint-plugin": "^8.45.0",
+    "@typescript-eslint/parser": "^8.45.0",
+    "eslint": "^9.36.0",
+    "typescript": "^5.9.3",
+    "@vscode/test-cli": "^0.0.11",
+    "@vscode/test-electron": "^2.5.2"
+  }
+}
