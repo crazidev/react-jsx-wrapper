@@ -1,373 +1,107 @@
-# JSX Wrapper - Configurable Refactoring
+# JSX Wrapper & Refactor 🚀
 
-Wrap JSX/TSX selections with custom components via `Ctrl + .` (Quick Fix menu).
+[![Visual Studio Marketplace](https://img.shields.io/visual-studio-marketplace/v/BeatCodeStudio.react-jsx-wrapper?style=for-the-badge&logo=visual-studio-code)](https://marketplace.visualstudio.com/items?itemName=BeatCodeStudio.react-jsx-wrapper)
+[![License](https://img.shields.io/github/license/crazidev/react-jsx-wrapper?style=for-the-badge)](https://github.com/crazidev/react-jsx-wrapper/blob/main/LICENSE)
 
-## Features
+**Smart JSX refactoring for the modern developer.** Effortlessly wrap, unwrap, and refactor JSX/TSX elements with intelligent auto-imports, configurable framework presets, and smart selection.
 
-- ✅ **Fully configurable** wrappers with custom imports
-- ✅ **Smart detection** - Works even when cursor is inside JSX tag name
-- ✅ **Wrap with custom element** - Interactive snippet with dual cursors
-- ✅ **Remove wrapper** - Unwrap elements intelligently
-- ✅ **Auto-format** - Optional formatting after wrapping
-- ✅ **Auto-imports** components from any module
-- ✅ **Default attributes** (style, className, callbacks, etc.)
-- ✅ **Works with React Native, React, or any JSX**
-- ✅ Preserves indentation (coming soon)
-- ✅ Updates existing imports intelligently
+## ✨ Features
 
-## Usage
+- 🧠 **Smart Detection** - Instantly expands selection to the full JSX element when your cursor is inside a tag.
+- 📦 **Configurable Wrappers** - Define your own components with custom imports and default attributes.
+- ⚡ **Framework Presets** - Optimized defaults for **React Native**, **React (Web)**, and **HTML**.
+- 🛠️ **Intelligent Unwrapping** - Choose between keeping or removing children when unwrapping elements.
+- 🎨 **Wrap with Custom Element** - A dynamic snippet that lets you type any element name with dual-cursor sync.
+- 🔗 **Smart Imports** - Automatically adds or updates named and default imports from any module.
+- 🧹 **Auto-Format** - Optionally triggers document formatting after every refactor for a clean codebase.
 
-### Method 1: Cursor Inside Element (Smart Detection)
+---
 
-1. **Place cursor anywhere in JSX element** (e.g., between `<V|iew>`)
-2. **Press `Ctrl + .`** (or `Cmd + .` on Mac)
-3. **Choose "Wrap with..."** from the refactor menu
+## 🚀 Quick Start
 
-### Method 2: Select Text
+### 1. Wrap Elements
+Place your cursor anywhere in a JSX tag (e.g., `<V|iew>`) or select a block of code, then press:
+- **Mac:** `Cmd + .`
+- **Windows/Linux:** `Ctrl + .`
 
-1. **Select JSX code** (partial or complete element)
-2. **Press `Ctrl + .`**
-3. **Choose "Wrap with..."**
+Choose your preferred component from the Refactor menu.
 
-### Method 3: Wrap with Custom Element
+### 2. Wrap with Custom Element
+Select code and choose **"Wrap with element..."**. Type the name (e.g., `div`), and both opening and closing tags will sync as you type.
 
-1. **Place cursor or select element**
-2. **Press `Ctrl + .`**
-3. **Choose "Wrap with element..."**
-4. **Type element name** - cursor syncs in opening and closing tags!
+### 3. Smart Unwrap
+Place your cursor in a tag and press the Quick Fix shortcut to:
+- **"Remove element (keep children)"** - Safely unwrap the content.
+- **"Remove element with children"** - Delete the entire element and its nested children.
 
-### Method 4: Remove Wrapper (Unwrap)
+---
 
-1. **Place cursor in element** (e.g., `<View>`)
-2. **Press `Ctrl + .`**
-3. **Choose:**
-   - **"Remove element (keep children)"** - Unwrap safely
-   - **"Remove element with children"** - Delete entire element
+## 🛠️ Configuration
 
-## Default Wrappers
+Tailor the extension to your project's needs via `settings.json`.
 
-The extension provides framework-specific defaults based on your configuration:
+### Global Options
 
-### React Native (`"jsxWrapper.framework": "react-native"`)
-
-- `View` - from react-native
-- `Text` - from react-native (shows both unwrap options)
-- `Pressable` - from react-native (with onPress)
-- `TouchableOpacity` - from react-native (with onPress)
-- `ScrollView` - from react-native
-
-### React (`"jsxWrapper.framework": "react"`) - Default
-
-- `div` - with className
-- `span` - with className
-- `section` - with className
-- `button` - with onClick
-
-### HTML (`"jsxWrapper.framework": "html"`)
-
-- `div`, `span`, `section`, `article`, `main`, `header`, `footer` - all with className
-
-**Note:** These defaults are only used if you haven't defined custom wrappers.
-
-## Configuration
+| Setting | Default | Description |
+| :--- | :--- | :--- |
+| `jsxWrapper.framework` | `"react"` | `react`, `react-native`, or `html` |
+| `jsxWrapper.smartDetection` | `true` | Auto-detect complete JSX element under cursor |
+| `jsxWrapper.formatAfterWrap` | `true` | Format document after refactoring |
+| `jsxWrapper.preferredWrapper`| `"View"` | The wrapper shown at the top of the list |
 
 ### Custom Wrappers
 
-Add custom wrappers in your VS Code `settings.json`:
+Add your own components to the refactor menu:
 
 ```json
 {
   "jsxWrapper.wrappers": [
-    {
-      "name": "View",
-      "import": {
-        "module": "react-native",
-        "named": true
-      },
-      "attributes": "style={{}}"
-    },
     {
       "name": "Button",
       "import": {
-        "module": "@/components/Button",
+        "module": "@/components/ui/Button",
         "default": true
       },
-      "attributes": "onPress={() => {}} variant=\"primary\""
+      "attributes": "variant=\"primary\" size=\"lg\""
     },
     {
-      "name": "Container",
+      "name": "MotiView",
       "import": {
-        "module": "@/components/Container",
+        "module": "moti",
         "named": true
-      }
-    },
-    {
-      "name": "div",
-      "attributes": "className=\"\""
-    },
-    {
-      "name": "section",
-      "attributes": "className=\"container\""
-    }
-  ],
-  "jsxWrapper.preferredWrapper": "View"
-}
-```
-
-### Configuration Options
-
-#### Global Settings
-
-| Setting                       | Type    | Default  | Description                                                |
-| ----------------------------- | ------- | -------- | ---------------------------------------------------------- |
-| `jsxWrapper.smartDetection`   | boolean | `true`   | Auto-detect complete JSX element when cursor is inside tag |
-| `jsxWrapper.formatAfterWrap`  | boolean | `true`   | Automatically format document after wrapping               |
-| `jsxWrapper.preferredWrapper` | string  | `"View"` | Default wrapper shown first in menu                        |
-
-#### Wrapper Object
-
-| Property              | Type    | Required | Description                                            |
-| --------------------- | ------- | -------- | ------------------------------------------------------ |
-| `name`                | string  | ✅       | Component or element name                              |
-| `import`              | object  | ❌       | Import configuration (omit for HTML elements)          |
-| `attributes`          | string  | ❌       | Default attributes to add                              |
-| `selfClosing`         | boolean | ❌       | Whether component is self-closing                      |
-| `requiresTextWrapper` | boolean | ❌       | If true, shows both unwrap options (for Text elements) |
-
-#### Import Object
-
-| Property  | Type    | Description                                               |
-| --------- | ------- | --------------------------------------------------------- |
-| `module`  | string  | Module path (e.g., `react-native`, `@/components/Button`) |
-| `named`   | boolean | Use named import: `import { Button } from '...'`          |
-| `default` | boolean | Use default import: `import Button from '...'`            |
-
-### Examples
-
-#### React Native Setup
-
-```json
-{
-  "jsxWrapper.framework": "react-native",
-  "jsxWrapper.preferredWrapper": "View",
-  "jsxWrapper.wrappers": [
-    // Add custom wrappers on top of framework defaults
-    {
-      "name": "AppText",
-      "import": { "module": "@/components/AppText", "default": true },
-      "requiresTextWrapper": true
+      },
+      "attributes": "from={{ opacity: 0 }} animate={{ opacity: 1 }}"
     }
   ]
 }
 ```
 
-**Note:** When you define custom wrappers, framework defaults are **not** included. Define all wrappers you need.
+#### Wrapper Properties
 
-```json
-{
-  "jsxWrapper.framework": "react-native",
-  "jsxWrapper.wrappers": [
-    {
-      "name": "View",
-      "import": { "module": "react-native", "named": true },
-      "attributes": "style={{}}"
-    },
-    {
-      "name": "Pressable",
-      "import": { "module": "react-native", "named": true },
-      "attributes": "onPress={() => {}}"
-    },
-    {
-      "name": "Text",
-      "import": { "module": "react-native", "named": true },
-      "requiresTextWrapper": true
-    },
-    {
-      "name": "Animated.View",
-      "import": { "module": "react-native", "named": true },
-      "attributes": "style={{}}"
-    }
-  ]
-}
-```
+| Property | Type | Description |
+| :--- | :--- | :--- |
+| `name` | `string` | The component or tag name |
+| `import` | `object` | `{ module: string, named: boolean, default: boolean }` |
+| `attributes` | `string` | Default props to insert (e.g., `style={{}}`) |
+| `selfClosing`| `boolean`| Forces self-closing behavior if applicable |
+| `removalBehavior` | `string` | `remove-with-children`, `remove-without-children`, or `both` |
 
-#### React Web Setup
+---
 
-```json
-{
-  "jsxWrapper.framework": "react",
-  "jsxWrapper.wrappers": [
-    {
-      "name": "div",
-      "attributes": "className=\"\""
-    },
-    {
-      "name": "Card",
-      "import": { "module": "@/components/ui/card", "named": true }
-    },
-    {
-      "name": "motion.div",
-      "import": { "module": "framer-motion", "named": true }
-    }
-  ]
-}
-```
+## 📦 Framework Defaults
 
-#### Custom Text Components
+When no custom `wrappers` are defined, the extension uses these optimized defaults:
 
-```json
-{
-  "jsxWrapper.framework": "react-native",
-  "jsxWrapper.wrappers": [
-    // Include framework defaults manually if needed
-    {
-      "name": "View",
-      "import": { "module": "react-native", "named": true }
-    },
-    {
-      "name": "Text",
-      "import": { "module": "react-native", "named": true },
-      "requiresTextWrapper": true
-    },
-    // Add custom text wrappers
-    {
-      "name": "AppText",
-      "import": { "module": "@/components/AppText", "default": true },
-      "requiresTextWrapper": true
-    },
-    {
-      "name": "Heading",
-      "import": { "module": "@/components/Typography", "named": true },
-      "requiresTextWrapper": true
-    }
-  ]
-}
-```
+- **React Native**: `View`, `Text`, `Pressable`, `TouchableOpacity`, `ScrollView` (all from `react-native`)
+- **React (Web)**: `div`, `span`, `button`
+- **HTML**: `div`, `span`, `button`, `center`, `b`, `hr`, `br`
 
-#### With Complex Attributes
+---
 
-```json
-{
-  "jsxWrapper.wrappers": [
-    {
-      "name": "TouchableOpacity",
-      "import": { "module": "react-native", "named": true },
-      "attributes": "onPress={() => {}} activeOpacity={0.7}"
-    },
-    {
-      "name": "FlatList",
-      "import": { "module": "react-native", "named": true },
-      "attributes": "data={[]} renderItem={({ item }) => <View />} keyExtractor={(item) => item.id}"
-    }
-  ]
-}
-```
+## 🤝 Contributing
 
-## Preferred Wrapper
+Found a bug or have a feature request? Open an issue on [GitHub](https://github.com/crazidev/react-jsx-wrapper/issues).
 
-Set which wrapper shows first (marked as "preferred"):
+## 📜 License
 
-```json
-{
-  "jsxWrapper.preferredWrapper": "View"
-}
-```
-
-## Tips
-
-- **Smart Detection ON** (default): Just place cursor in tag name and press `Ctrl + .`
-- **Smart Detection OFF**: Must select complete element
-- **Format After Wrap ON** (default): Code auto-formats after wrapping
-- **Format After Wrap OFF**: Manual formatting required
-- **Framework setting** only applies when `wrappers` array is empty
-- **Custom wrappers override framework** - define all wrappers you need
-- **Omit `import`** for HTML elements (div, span, etc.)
-- **Use `named: true`** for `import { Component } from '...'`
-- **Use `default: true`** for `import Component from '...'`
-- **Set `requiresTextWrapper: true`** for Text components to show both unwrap options
-- **Attributes** are inserted as-is, so include proper spacing
-- Extension works in both `.jsx`/`.tsx` and `.js`/`.ts` files
-
-## Examples in Action
-
-### Smart Detection Example:
-
-```jsx
-// Cursor position: <V|iew>
-<View>
-  <Text>Hello</Text>
-</View>
-
-// Press Ctrl+. → Wrap with Pressable
-<Pressable onPress={() => {}}>
-  <View>
-    <Text>Hello</Text>
-  </View>
-</Pressable>
-```
-
-### Wrap with Custom Element:
-
-```jsx
-// Before: Cursor in <Text>
-<Text>Hello World</Text>
-
-// Press Ctrl+. → "Wrap with element..."
-// Type "div" (cursor syncs in both tags!)
-<div>
-  <Text>Hello World</Text>
-</div>
-```
-
-### Unwrap Examples:
-
-#### Safe Unwrap (View, Pressable, etc.):
-
-```jsx
-// Before: Cursor in <View>
-<View style={{}}>
-  <Text>Content</Text>
-</View>
-
-// After: "Remove element (keep children)"
-<Text>Content</Text>
-```
-
-#### Unsafe Unwrap (Text elements):
-
-```jsx
-// Before: Cursor in <Text>
-<Text>Hello World</Text>
-
-// Option 1: "Remove element (keep children)" → ONLY TEXT REMAINS
-Hello World  // ⚠️ Will break in React Native!
-
-// Option 2: "Remove element with children" → EVERYTHING DELETED
-(empty)  // ✅ Safe choice
-```
-
-### Before:
-
-```jsx
-<Text>Hello World</Text>
-```
-
-### After (Wrap with View):
-
-```jsx
-<View>
-  <Text>Hello World</Text>
-</View>
-```
-
-### With Attributes:
-
-```jsx
-<View style={{}}>
-  <Text>Hello World</Text>
-</View>
-```
-
-## License
-
-MIT
+MIT © [BeatCode Studio](https://github.com/crazidev)

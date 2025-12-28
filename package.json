@@ -1,18 +1,45 @@
 {
   "name": "react-jsx-wrapper",
-  "displayName": "React JSX Refactor Wrapper",
-  "description": "Refactor: Wrap JSX with React Native components (View, Pressable, etc.) via Ctrl+.",
-  "version": "0.0.1",
+  "displayName": "JSX Wrapper & Refactor",
+  "publisher": "BeatCodeStudio",
+  "description": "Smart JSX refactoring: Wrap/unwrap elements with custom components, auto-imports, and configurable attributes. Optimized for React and React Native productivity.",
+  "version": "1.0.0",
+  "license": "MIT",
   "engines": {
-    "vscode": "^1.105.0"
+    "vscode": "^1.99.0"
   },
+  "author": {
+    "name": "BeatCode Studio",
+    "email": "hello@beatcode.studio"
+  },
+  "pricing": "Free",
   "categories": [
+    "Programming Languages",
+    "Snippets",
     "Other"
+  ],
+  "keywords": [
+    "react",
+    "jsx",
+    "tsx",
+    "refactor",
+    "react-native",
+    "wrap",
+    "wrap-with",
+    "unwrap",
+    "productivity"
   ],
   "activationEvents": [
     "onLanguage:javascriptreact",
     "onLanguage:typescriptreact"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/crazidev/react-jsx-wrapper.git"
+  },
+  "bugs": {
+    "url": "https://github.com/crazidev/react-jsx-wrapper/issues"
+  },
   "main": "./out/extension.js",
   "contributes": {
     "commands": [],
@@ -134,7 +161,7 @@
     "test": "vscode-test"
   },
   "devDependencies": {
-    "@types/vscode": "^1.105.0",
+    "@types/vscode": "^1.99.0",
     "@types/mocha": "^10.0.10",
     "@types/node": "22.x",
     "@typescript-eslint/eslint-plugin": "^8.45.0",
